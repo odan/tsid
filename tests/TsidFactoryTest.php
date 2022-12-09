@@ -22,7 +22,7 @@ final class TsidFactoryTest extends TestCase
         $list = [];
         for ($i = 0; $i < $loopMax; $i++) {
             $tsid = $tsidFactory->generate();
-            echo $tsid->toInt() . "\n";
+
             $this->assertSame(13, strlen($tsid->toString()));
             $this->assertSame(18, strlen((string)$tsid->toInt()));
             $this->assertTrue($tsid->equals(clone $tsid));
