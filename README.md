@@ -43,7 +43,17 @@ echo $tsid->toString();
 
 ### MySQL
 
-* Todo
+Use `bigint(20) unsigned` as datatype for the (primary / secondary) key. 
+
+Example:
+
+```sql
+CREATE TABLE `users` (
+    `id` bigint(20) unsigned NOT NULL,
+    `username` varchar(45) NOT NULL,
+     PRIMARY KEY (`id`)
+) ENGINE=InnoDB
+```
 
 ## Read more
 
