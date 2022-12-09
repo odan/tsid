@@ -4,6 +4,7 @@ namespace Odan\Tsid\Test;
 
 use Odan\Tsid\Tsid;
 use Odan\Tsid\TsidFactory;
+use PDO;
 use PHPUnit\Framework\TestCase;
 
 final class TsidFactoryTest extends TestCase
@@ -21,6 +22,7 @@ final class TsidFactoryTest extends TestCase
         $list = [];
         for ($i = 0; $i < $loopMax; $i++) {
             $tsid = $tsidFactory->generate();
+            echo $tsid->toInt() . "\n";
             $this->assertSame(13, strlen($tsid->toString()));
             $this->assertSame(18, strlen((string)$tsid->toInt()));
             $this->assertTrue($tsid->equals(clone $tsid));
@@ -36,5 +38,36 @@ final class TsidFactoryTest extends TestCase
         }
 
         $this->assertTrue(true);
+    }
+
+    public function testSqlLite(): void
+    {
+        $pdo = new PDO('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+        $pdo->exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT);');
+
+        $statement = $pdo->prepare('INSERT INTO users (id, username) VALUES (?, ?)');
+
+        $tsidFactory = new TsidFactory();
+
+        $tsid = $tsidFactory->generate();
+        $id = $tsid->toInt();
+        $name = $tsid->toString();
+        $statement->execute([$id, $name]);
+
+        // Check last inserted id
+        $newId = $pdo->lastInsertId();
+        $this->assertSame((string)$id, $newId);
+
+        // Fetch row by TSID
+        $stmt = $pdo->prepare('SELECT * FROM users WHERE id=:id');
+        $stmt->execute(['id' => $id]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $expected = [
+            'id' => $id,
+            'username' => $name,
+        ];
+        $this->assertSame($expected, $user);
     }
 }

@@ -49,10 +49,39 @@ Example:
 
 ```sql
 CREATE TABLE `users` (
-    `id` bigint(20) unsigned NOT NULL,
+    `id` bigint(20) NOT NULL,
     `username` varchar(45) NOT NULL,
      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB
+```
+
+**Note:** When you use `BIGINT(20)` the maximum value is 2^63 - 1 == `9223372036854775807`.
+This means there is still enough space to store any TSID.
+When you use `BIGINT(20) unsigned` the maximum value is: 2^64-1 = `18446744073709551615`
+
+### SQLite
+
+Use `INTEGER` as datatype for the (primary / secondary) key.
+
+```sql
+CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT);
+```
+
+**Note:** SQLite uses an 8-byte **signed** integer to store integers.
+So the maximum positive integer value is 2^63 - 1 == `9223372036854775807`.
+This means there is still enough space to store any TSID.
+
+## Data Type Comparison
+
+```
+TSID max:                          18446744073709551615
+TSID 2023-01-01T00:00:00.000Z:       397177100698290050
+TSID 2038-01-19T03:14:07.000Z:      2389272048961164191
+TSID 2999-12-31T23:59:59.999Z:      7015104302283010234
+PHP_INT_MAX:                        9223372036854775807
+SQLite INTEGER max:                 9223372036854775807
+MySQL BIGINT(20) max:               9223372036854775807
+MySQL BIGINT(20) unsigned max:     18446744073709551615
 ```
 
 ## Read more
