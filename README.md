@@ -1,11 +1,11 @@
 # TSID – Time-Sorted Unique Identifiers
 
-[![Latest Version on Packagist](https://img.shields.io/github/release/odan/tsid.svg)](https://packagist.org/packages/selective/tsid)
+[![Latest Version on Packagist](https://img.shields.io/github/release/odan/tsid.svg)](https://packagist.org/packages/odan/tsid)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 [![Build Status](https://github.com/odan/tsid/workflows/build/badge.svg)](https://github.com/odan/tsid/actions)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/odan/tsid.svg)](https://scrutinizer-ci.com/g/odan/tsid/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/quality/g/odan/tsid.svg)](https://scrutinizer-ci.com/g/odan/tsid/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/selective/tsid.svg)](https://packagist.org/packages/selective/tsid/stats)
+[![Total Downloads](https://img.shields.io/packagist/dt/odan/tsid.svg)](https://packagist.org/packages/odan/tsid/stats)
 
 ## Description
 
