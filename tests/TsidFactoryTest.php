@@ -20,6 +20,8 @@ final class TsidFactoryTest extends TestCase
         $loopMax = 1024 * 3;
 
         $list = [];
+        $stack = [];
+
         for ($i = 0; $i < $loopMax; $i++) {
             $tsid = $tsidFactory->generate();
 
@@ -33,11 +35,19 @@ final class TsidFactoryTest extends TestCase
             if (isset($list[$number])) {
                 $this->fail('A duplicate TSID was created: ' . $number);
             }
-            $list[$number] = 1;
-            // echo $number . "\n";
+
+            $list[$number] = $i;
+            $stack[] = $number;
         }
 
-        $this->assertTrue(true);
+        // Check ordering 1
+        $listSort = $list;
+        ksort($listSort);
+        $this->assertSame($listSort, $list, 'The list is not ordered');
+
+        // Check ordering 2
+        $listSort2 = array_flip($listSort);
+        $this->assertSame($listSort2, $stack, 'The list is not ordered');
     }
 
     public function testSqlLite(): void
