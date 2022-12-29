@@ -49,7 +49,7 @@ Example:
 
 ```sql
 CREATE TABLE `users` (
-    `id` bigint(20) NOT NULL,
+    `id` bigint(20) unsigned NOT NULL,
     `username` varchar(45) NOT NULL,
      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB
