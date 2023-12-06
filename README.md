@@ -88,8 +88,8 @@ MySQL BIGINT(20) unsigned max:     18446744073709551615
 
 * https://vladmihalcea.com/uuid-database-primary-key/
 * https://github.com/f4b6a3/tsid-creator
-* [UUID version 7](https://symfony.com/doc/current/components/uid.html#generating-uuids) features a time-ordered value field derived.
-* [ULID's](https://symfony.com/doc/current/components/uid.html#ulids) are 128-bit numbers with a timestamp random bits.
+* [UUID version 7](https://symfony.com/doc/current/components/uid.html#generating-uuids) features a time-ordered value field.
+* [ULID's](https://symfony.com/doc/current/components/uid.html#ulids) are 128-bit numbers with a timestamp and random bits.
 
 ## License
 
