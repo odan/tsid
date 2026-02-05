@@ -39,7 +39,7 @@ final class TsidFactory implements TsidFactoryInterface
 
     private int $customEpoch;
 
-    public function __construct(int $nodeBits = self::NODE_BITS_1024, int $node = null, DateTimeImmutable $customDateUtc = null)
+    public function __construct(int $nodeBits = self::NODE_BITS_1024, ?int $node = null, ?DateTimeImmutable $customDateUtc = null)
     {
         $this->nodeBits = $nodeBits;
 
