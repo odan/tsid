@@ -39,12 +39,12 @@ final class TsidFactory implements TsidFactoryInterface
 
     private int $customEpoch;
 
-    public function __construct(int $nodeBits = self::NODE_BITS_1024, int $node = null)
+    public function __construct(int $nodeBits = self::NODE_BITS_1024, ?int $node = null, ?DateTimeImmutable $customDateUtc = null)
     {
         $this->nodeBits = $nodeBits;
 
-        // Number of milliseconds of 2020-01-01T00:00:00.000Z.
-        $dateUtc = new DateTimeImmutable('2020-01-01T00:00:00.000Z', new DateTimeZone('UTC'));
+        // Number of milliseconds of 2020-01-01T00:00:00.000Z or custom date time.
+        $dateUtc = $customDateUtc ?: new DateTimeImmutable('2020-01-01T00:00:00.000Z', new DateTimeZone('UTC'));
         $this->customEpoch = (int)substr($dateUtc->format('Uu'), 0, 13);
 
         // setup constants that depend on node bits

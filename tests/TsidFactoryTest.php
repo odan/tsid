@@ -2,6 +2,8 @@
 
 namespace Odan\Tsid\Test;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Odan\Tsid\Tsid;
 use Odan\Tsid\TsidFactory;
 use PDO;
@@ -79,5 +81,25 @@ final class TsidFactoryTest extends TestCase
             'username' => $name,
         ];
         $this->assertSame($expected, $user);
+    }
+
+    public function testCustomDateUtc(): void
+    {
+        $customEpoch = new DateTimeImmutable('2026-01-01T00:00:00.000Z', new DateTimeZone('UTC'));
+
+        $factoryWithCustomEpoch = new TsidFactory(TsidFactory::NODE_BITS_1024, null, $customEpoch);
+        $factoryWithDefaultEpoch = new TsidFactory(TsidFactory::NODE_BITS_1024);
+
+        $tsidCustom = $factoryWithCustomEpoch->generate();
+        $tsidDefault = $factoryWithDefaultEpoch->generate();
+
+        // The custom epoch is later than the default epoch, so TSIDs generated
+        // with the custom epoch will have a smaller time component (fewer milliseconds since epoch).
+        // This means the custom epoch TSID should be smaller than the default epoch TSID.
+        $this->assertLessThan($tsidDefault->toInt(), $tsidCustom->toInt());
+
+        // Verify both TSIDs are valid 13-character strings
+        $this->assertSame(13, strlen($tsidCustom->toString()));
+        $this->assertSame(13, strlen($tsidDefault->toString()));
     }
 }
