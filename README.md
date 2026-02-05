@@ -15,7 +15,7 @@ This library is a port of [TSID Creator](https://github.com/f4b6a3/tsid-creator)
 
 ## Requirements
 
- * PHP 8.0+
+ * PHP 8.2+
 
 ## Installation
 
